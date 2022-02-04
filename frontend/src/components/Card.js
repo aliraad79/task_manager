@@ -1,5 +1,3 @@
-import { Row, Col } from "react-bootstrap";
-
 const Card = ({ text }) => {
   return (
     <div

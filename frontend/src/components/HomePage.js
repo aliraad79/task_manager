@@ -18,7 +18,7 @@ const HomePage = () => {
       <NavBar />
       <center>
         <Row>
-          <Col style={{ backgroundColor: "#699174" }}>
+          <Col style={{ backgroundColor: "#EBECF0" }}>
             <Row>
               <center>Column 1</center>
             </Row>
