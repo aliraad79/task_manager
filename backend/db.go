@@ -5,11 +5,29 @@ import (
 	"gorm.io/gorm"
 )
 
+type WorkSpace struct {
+	gorm.Model
+	Name string
+
+	User []User `gorm:"many2many:user_workspaces;"`
+}
+
+type Column struct {
+	gorm.Model
+	Name        string `json:"title" binding:"required"`
+	WorkSpaceID int
+	WorkSpace   WorkSpace
+}
+
 type Card struct {
 	gorm.Model
-	Title  string `json:"title" binding:"required"`
-	Body   string `json:"body" binding:"required"`
-	UserID int
+	Title string `json:"title" binding:"required"`
+	Body  string `json:"body" binding:"required"`
+
+	User []User `gorm:"many2many:user_cards;"`
+
+	ColumnID int
+	Column   Column
 }
 
 type User struct {
@@ -26,7 +44,9 @@ func initDB() gorm.DB {
 	}
 
 	// Migrate the schema
-	db.AutoMigrate(&Card{})
+	db.AutoMigrate(&WorkSpace{})
+	db.AutoMigrate(&Column{})
 	db.AutoMigrate(&User{})
+	db.AutoMigrate(&Card{})
 	return *db
 }

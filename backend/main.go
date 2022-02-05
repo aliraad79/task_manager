@@ -36,6 +36,8 @@ func main() {
 
 	router := gin.Default()
 	router.Use(CORSMiddleware())
+	router.POST("/backend/login", login)
+	router.POST("/backend/signup", singup)
 
 	card_router := router.Group("/api/cards")
 	card_router.Use(JWTMiddleware())
