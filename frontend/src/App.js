@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import HomePage from "./components/HomePage";
 import Login from "./components/Login";
 import LogoImage from "./background.jpg";
+import CardDetail from "./components/CardDetail";
 
 var backgroundStyle = {
   backgroundImage: `url(${LogoImage})`,
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/detail/:id" element={<CardDetail />} />
         </Routes>
       </Router>
     </div>
