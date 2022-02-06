@@ -34,12 +34,13 @@ func main() {
 	}
 	db = initDB()
 
-	router := gin.Default()
+	r := gin.Default()
+	router := r.Group("/api")
 	router.Use(CORSMiddleware())
-	router.POST("/backend/login", login)
-	router.POST("/backend/signup", singup)
+	router.POST("/login", login)
+	router.POST("/signup", singup)
 
-	card_router := router.Group("/api/cards")
+	card_router := router.Group("/cards")
 	card_router.Use(JWTMiddleware())
 	card_router.GET("/", getAllCards)
 	card_router.POST("/", createCard)
@@ -47,5 +48,5 @@ func main() {
 	card_router.PUT("/:card_id", updateCard)
 	card_router.DELETE("/:card_id", deleteCard)
 
-	router.Run()
+	r.Run()
 }
