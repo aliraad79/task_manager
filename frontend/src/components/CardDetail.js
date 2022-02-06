@@ -1,11 +1,13 @@
 import { Container, Form, Col, Row, Button } from "react-bootstrap";
 
 import { useParams } from "react-router-dom";
-import { FaAddressCard, FaInfo, FaCircle, FaPlus } from "react-icons/fa";
+import { FaAddressCard, FaInfo, FaCircle, FaPlus, FaComment } from "react-icons/fa";
 import Comment from "./Comment";
+import Checklist from "./Checklist";
 
 const CardDetail = () => {
   const { id } = useParams();
+  const mock = ["ali", "test"];
 
   return (
     <Container
@@ -38,13 +40,14 @@ const CardDetail = () => {
               </Form.Group>
             </Form>
           </div>
-          <div>Checklist</div>
+          <Checklist checklists={mock} />
           <div>
+            <FaComment />
             Comments
-            <Comment text={"Comment1"}/>
-            <Comment text={"Comment2"}/>
-            <Comment text={"Comment3"}/>
-            <Comment text={"Comment4"}/>
+            <Comment text={"Comment1"} />
+            <Comment text={"Comment2"} />
+            <Comment text={"Comment3"} />
+            <Comment text={"Comment4"} />
           </div>
         </Col>
         <Col>

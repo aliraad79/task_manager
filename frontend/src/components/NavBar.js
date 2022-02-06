@@ -1,6 +1,8 @@
 import { Container, Navbar, Nav } from "react-bootstrap";
+import { useCookies } from "react-cookie";
 
 const MyNavbar = () => {
+  const [cookies, setCookie] = useCookies(["authToken"]);
   return (
     <div>
       <svg
@@ -16,9 +18,17 @@ const MyNavbar = () => {
             <Navbar.Brand>Task Manger</Navbar.Brand>
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="/login">Login</Nav.Link>
-                <Nav.Link href="/signout">Sign Out</Nav.Link>
+                {cookies.authToken ? (
+                  <>
+                    <Nav.Link href="/">Home</Nav.Link>
+                    <Nav.Link href="/signout">Sign Out</Nav.Link>
+                  </>
+                ) : (
+                  <>
+                    <Nav.Link href="/signup">Sign Up</Nav.Link>
+                    <Nav.Link href="/login">Login</Nav.Link>
+                  </>
+                )}
               </Nav>
             </Navbar.Collapse>
           </Container>

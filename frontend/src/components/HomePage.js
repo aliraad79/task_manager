@@ -3,13 +3,17 @@ import Card from "./Card";
 
 // import { useState } from "react";
 import { Row, Col, Container } from "react-bootstrap";
+import {  Navigate } from "react-router-dom";
 
-const HomePage = () => {
+const HomePage = ({ getAuthToken }) => {
   // const [tasks, setTasks] = useState([]);
   // setTasks(["Task1", "Task2", "Task3"]);
 
   const tasks = ["Task1", "Task2", "Task3"];
-  return (
+  const token = getAuthToken();
+  return !token ? (
+    <Navigate to={{ pathname: "/login" }} />
+  ) : (
     <>
       <NavBar />
       <Container style={{ maxWidth: "100%" }}>
