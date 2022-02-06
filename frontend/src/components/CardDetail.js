@@ -17,7 +17,6 @@ const CardDetail = () => {
         width: "70%",
         height: "100vh",
         backgroundColor: "#1A9393",
-        border: "5px solid #FFFF00",
         margin: "auto",
         padding: "10px",
         color: "white",
