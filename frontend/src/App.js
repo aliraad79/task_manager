@@ -12,7 +12,7 @@ import SignUp from "./components/SignUp";
 import Signout from "./components/Signout";
 
 var backgroundStyle = {
-  // backgroundImage: `url(${LogoImage})`,
+  backgroundImage: `url(${LogoImage})`,
   height: "100vh",
   zIndex: -2,
 };

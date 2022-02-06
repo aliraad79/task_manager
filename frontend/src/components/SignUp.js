@@ -12,7 +12,6 @@ import { BASE_SERVER_URL } from "../consts";
 import MyNavbar from "./NavBar";
 
 const SignUp = ({ getAuthToken }) => {
-  console.log("HERE")
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -33,7 +32,7 @@ const SignUp = ({ getAuthToken }) => {
         }
       })
       .then((response) => {
-        navigate("/", { replace: true });
+        if (response) navigate("/login");
       });
   };
 
@@ -43,12 +42,13 @@ const SignUp = ({ getAuthToken }) => {
   ) : (
     <>
       <MyNavbar getAuthToken={getAuthToken} />
-      <br />
       <Container>
         <Row>
           <Col></Col>
           <Col xs={6}>
-            <h2>Sign Up</h2>
+            <center>
+              <h2>Sign Up</h2>
+            </center>
           </Col>
           <Col></Col>
         </Row>
@@ -83,14 +83,11 @@ const SignUp = ({ getAuthToken }) => {
                     }}
                   />
                 </FloatingLabel>
-                <Row>
-                  <Col></Col>
-                  <Col>
-                    <Button variant="info" type="submit">
-                      Sign UP
-                    </Button>
-                  </Col>
-                </Row>
+                <center>
+                  <Button variant="info" type="submit">
+                    Sign UP
+                  </Button>
+                </center>
               </Form>
             </div>
           </Col>

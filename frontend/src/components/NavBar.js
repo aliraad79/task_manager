@@ -2,7 +2,7 @@ import { Container, Navbar, Nav } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 
 const MyNavbar = () => {
-  const [cookies, setCookie] = useCookies(["authToken"]);
+  const [cookies, _] = useCookies(["authToken"]);
   return (
     <div>
       <svg
@@ -13,7 +13,7 @@ const MyNavbar = () => {
         <path d="M 0 0 L 27 0 V 2 C 16 -2 9 2 0 2 V 0" fill="#87603C" />
       </svg>
       <div style={{ height: "100px" }}>
-        <Navbar scrolling dark expand="md" style={{ zIndex: 3 }}>
+        <Navbar scrolling="true" dark="true" expand="md" style={{ zIndex: 3 }}>
           <Container>
             <Navbar.Brand>Task Manger</Navbar.Brand>
             <Navbar.Collapse id="basic-navbar-nav">

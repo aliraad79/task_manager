@@ -27,13 +27,15 @@ const Login = ({ setAuthToken, getAuthToken }) => {
       }),
     })
       .then((response) => {
-        if (response.status !== 401) {
+        if (response.status === 200) {
           return response.json();
         }
       })
       .then((response) => {
-        setAuthToken(`${response.token}`);
-        navigate("/", { replace: true });
+        if (response) {
+          setAuthToken(`${response.token}`);
+          navigate("/", { replace: true });
+        }
       });
   };
 
