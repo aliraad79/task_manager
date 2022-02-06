@@ -1,4 +1,10 @@
-import { Container, Navbar, Nav } from "react-bootstrap";
+import {
+  Container,
+  Navbar,
+  Nav,
+  Dropdown,
+  DropdownButton,
+} from "react-bootstrap";
 import { useCookies } from "react-cookie";
 
 const MyNavbar = () => {
@@ -22,6 +28,39 @@ const MyNavbar = () => {
                   <>
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="/signout">Sign Out</Nav.Link>
+                    <Nav.Link>
+                      <Dropdown>
+                        <Dropdown.Toggle
+                          id="dropdown-button-dark-example1"
+                          variant="secondary"
+                        >
+                          Spaces
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu variant="dark">
+                          <Dropdown.Item href="#/action-1" active="true">
+                            My Spaces
+                          </Dropdown.Item>
+                          <Dropdown.Divider />
+                          <Dropdown.Item href="#/action-4">
+                            New Space
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </Nav.Link>
+                    <Nav.Link>
+                      <Dropdown>
+                        <Dropdown.Toggle
+                          id="dropdown-button-dark-example1"
+                          variant="secondary"
+                        >
+                          Members
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu variant="dark">
+                          <Dropdown.Item active="true">My Spaces</Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </Nav.Link>
                   </>
                 ) : (
                   <>
