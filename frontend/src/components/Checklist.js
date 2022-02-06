@@ -1,11 +1,11 @@
 import { Form } from "react-bootstrap";
 import { FaCheckSquare } from "react-icons/fa";
+import DetailRow from "./DetailRow";
 
 const Checklist = ({ checklists }) => {
   return (
     <>
-      <FaCheckSquare />
-      CheckList
+      <DetailRow Icon={FaCheckSquare} text="CheckList" />
       <div
         style={{
           width: "80%",

@@ -1,18 +1,18 @@
 import { FaCircle } from "react-icons/fa";
+import Member from "./Member";
 
-const Comment = ({ text }) => {
+const Comment = ({ text, name, picUrl }) => {
   return (
     <>
+      <Member name={name} picUrl={picUrl} />
       <div
         style={{
           width: "80%",
-          border: "5px solid #FF0000",
           margin: "auto",
           padding: "5px",
           color: "white",
         }}
       >
-        <FaCircle />
         {text}
       </div>
     </>

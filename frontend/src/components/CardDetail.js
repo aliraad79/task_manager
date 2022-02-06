@@ -1,9 +1,11 @@
 import { Container, Form, Col, Row, Button } from "react-bootstrap";
 
 import { useParams } from "react-router-dom";
-import { FaAddressCard, FaInfo, FaCircle, FaPlus, FaComment } from "react-icons/fa";
+import { FaAddressCard, FaInfo, FaPlus, FaComment } from "react-icons/fa";
 import Comment from "./Comment";
 import Checklist from "./Checklist";
+import Member from "./Member";
+import DetailRow from "./DetailRow";
 
 const CardDetail = () => {
   const { id } = useParams();
@@ -23,10 +25,7 @@ const CardDetail = () => {
     >
       <Row>
         <Col xs={8}>
-          <div>
-            <FaAddressCard />
-            Card Title
-          </div>
+          <DetailRow Icon={FaAddressCard} text="Card Title" />
           <div>
             <Form>
               <Form.Group
@@ -34,32 +33,28 @@ const CardDetail = () => {
                 controlId="exampleForm.ControlTextarea1"
               >
                 <Form.Label>
-                  <FaInfo /> Description{" "}
+                  <DetailRow Icon={FaInfo} text="Description" />
                 </Form.Label>
                 <Form.Control as="textarea" rows={3} />
               </Form.Group>
             </Form>
           </div>
           <Checklist checklists={mock} />
-          <div>
-            <FaComment />
-            Comments
-            <Comment text={"Comment1"} />
-            <Comment text={"Comment2"} />
-            <Comment text={"Comment3"} />
-            <Comment text={"Comment4"} />
+          <div style={{ marginBottom: "10px", marginTop: "10px" }}>
+            <DetailRow Icon={FaComment} text="Comments" />
+            <Comment text="Comment1" name="Ali" picUrl="test.jpg" />
+            <Comment text="Comment2" name="Ali" picUrl="test.jpg" />
+            <Comment text="Comment3" name="Ali" picUrl="test.jpg" />
+            <Comment text="Comment4" name="Ali" picUrl="test.jpg" />
           </div>
         </Col>
         <Col>
           <div>
             Members
-            <br />
-            <FaCircle />
-            <br /> <FaCircle />
-            <br /> <FaCircle />
-            <br /> <FaCircle />
-            <br />
-            <FaCircle />
+            <Member name="Ali" picUrl="test.jpg" />
+            <Member name="Ali" picUrl="test.jpg" />
+            <Member name="Ali" picUrl="test.jpg" />
+            <Member name="Ali" picUrl="test.jpg" />
           </div>
           <div>
             <Button>
