@@ -40,9 +40,10 @@ func main() {
 	router.POST("/login", login)
 	router.POST("/signup", singup)
 
+	router.POST("/board", createBorad)
+
 	card_router := router.Group("/cards")
 	card_router.Use(JWTMiddleware())
-	card_router.GET("/", getAllCards)
 	card_router.POST("/", createCard)
 	card_router.GET("/:card_id", getCardRoute)
 	card_router.PUT("/:card_id", updateCard)
