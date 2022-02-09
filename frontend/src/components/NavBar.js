@@ -10,7 +10,7 @@ import { useCookies } from "react-cookie";
 const MyNavbar = () => {
   const [cookies, _] = useCookies(["authToken"]);
   return (
-    <div>
+    <div style={{ marginBottom: "50px" }}>
       <svg
         style={{ position: "absolute", top: 0, width: "100%", zIndex: 2 }}
         xmlns="http://www.w3.org/2000/svg"

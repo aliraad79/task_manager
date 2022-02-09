@@ -1,11 +1,16 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import CardDetail from "./CardDetail";
+import { useState } from "react";
+
 const Card = ({ text }) => {
-  let navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
   return (
     <div
       className="shadow p-1 mb-2 bg-white rounded"
-      onClick={() => navigate(`/detail/${text}`)}
+      onClick={() => setShowModal(true)}
     >
+      {showModal && (
+        <CardDetail setShowModal={setShowModal} startState={true} />
+      )}
       {text}
     </div>
   );

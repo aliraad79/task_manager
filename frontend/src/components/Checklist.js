@@ -17,7 +17,7 @@ const Checklist = ({ checklists }) => {
       >
         <Form>
           {checklists.map((item) => (
-            <div key={`default-checkbox`} className="mb-1">
+            <div key={`default-${item}`} className="mb-1">
               <Form.Check
                 type="checkbox"
                 id={`default-checkbox`}
