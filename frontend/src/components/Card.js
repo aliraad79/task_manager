@@ -26,7 +26,7 @@ const Card = ({ text }) => {
       <Modal size="lg" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>
-            <DetailRow Icon={FaAddressCard} text="Card Title" />
+            <DetailRow Icon={FaAddressCard} text={text} />
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

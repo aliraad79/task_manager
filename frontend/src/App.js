@@ -32,7 +32,15 @@ function App() {
     <div style={backgroundStyle}>
       <Router>
         <Routes>
-          <Route path="/" element={<HomePage getAuthToken={getAuthToken} />} />
+          <Route
+            path="/"
+            element={
+              <HomePage
+                getAuthToken={getAuthToken}
+                setAuthToken={setAuthToken}
+              />
+            }
+          />
 
           <Route
             path="/login"
