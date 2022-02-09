@@ -5,7 +5,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import HomePage from "./components/HomePage";
 import Login from "./components/Login";
 import LogoImage from "./background.jpg";
-import CardDetail from "./components/CardDetail";
 import { useCookies } from "react-cookie";
 import { SESSION_AGE_IN_HOURS } from "./consts";
 import SignUp from "./components/SignUp";
@@ -49,7 +48,6 @@ function App() {
             path="/signout"
             element={<Signout setAuthToken={setAuthToken} />}
           />
-          <Route path="/detail/:id" element={<CardDetail />} />
         </Routes>
       </Router>
     </div>

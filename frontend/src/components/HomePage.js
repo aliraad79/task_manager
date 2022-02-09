@@ -3,7 +3,7 @@ import Card from "./Card";
 
 // import { useState } from "react";
 import { Row, Col, Container } from "react-bootstrap";
-import {  Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const HomePage = ({ getAuthToken }) => {
   // const [tasks, setTasks] = useState([]);
@@ -23,7 +23,7 @@ const HomePage = ({ getAuthToken }) => {
               <center>Column 1</center>
             </Row>
             {tasks.map((task) => (
-              <Row>
+              <Row style={{ marginLeft: "2px", marginRight: "2px" }}>
                 <Card text={task} key={task} />
               </Row>
             ))}
