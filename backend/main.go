@@ -35,8 +35,9 @@ func main() {
 	db = initDB()
 
 	r := gin.Default()
+	r.Use(CORSMiddleware())
+
 	router := r.Group("/api")
-	router.Use(CORSMiddleware())
 	router.POST("/login", login)
 	router.POST("/signup", singup)
 
@@ -48,6 +49,8 @@ func main() {
 	card_router.GET("/:card_id", getCardRoute)
 	card_router.PUT("/:card_id", updateCard)
 	card_router.DELETE("/:card_id", deleteCard)
+
+	card_router.GET("/", getAllCards)
 
 	r.Run()
 }

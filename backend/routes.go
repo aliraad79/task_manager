@@ -23,6 +23,17 @@ func getCard(card_id int) (Card, error) {
 	return card, nil
 }
 
+func getAllCards(c *gin.Context) {
+	var cards []Card
+	db.Find(&cards)
+	var response []M
+
+	for _, u := range cards {
+		response = append(response, CardToJSON(u))
+	}
+	c.JSON(http.StatusOK, response)
+}
+
 func updateCard(c *gin.Context) {
 	var new_card Card
 	var card Card
