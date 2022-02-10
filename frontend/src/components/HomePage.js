@@ -30,7 +30,7 @@ const HomePage = ({ getAuthToken, setAuthToken }) => {
         );
     };
     getNotes();
-  }, []);
+  });
 
   return !token ? (
     <Navigate to={{ pathname: "/login" }} />

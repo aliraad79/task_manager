@@ -1,7 +1,4 @@
-import Card from "./Card";
-
-import { Row, Col } from "react-bootstrap";
-import AddCard from "./AddCard";
+import { Row } from "react-bootstrap";
 
 const HomePageColumns = ({ text }) => {
   return (
