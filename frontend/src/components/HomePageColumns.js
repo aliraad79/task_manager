@@ -3,13 +3,13 @@ import Card from "./Card";
 import { Row, Col } from "react-bootstrap";
 import AddCard from "./AddCard";
 
+import ColumnHeader from "./ColumnHeader";
+
 const HomePageColumns = ({ token, cards, setCards }) => {
   return (
     <>
       <Col style={{ backgroundColor: "#EBECF0" }}>
-        <Row>
-          <center>Backlog</center>
-        </Row>
+        <ColumnHeader text="Backlog" />
         {cards.map((task) => (
           <Row style={{ marginLeft: "2px", marginRight: "2px" }}>
             <Card text={task} key={task} />
@@ -20,25 +20,25 @@ const HomePageColumns = ({ token, cards, setCards }) => {
         </Row>
       </Col>
       <Col style={{ backgroundColor: "#EBECF0" }}>
-        <center>TO DO</center>
+        <ColumnHeader text="TO DO" />
         <Row style={{ marginLeft: "2px", marginRight: "2px" }}>
           <AddCard text="Add Card" token={token} setCards={setCards} />
         </Row>
       </Col>
       <Col style={{ backgroundColor: "#EBECF0" }}>
-        <center>Doing</center>
+        <ColumnHeader text="Doing" />
         <Row style={{ marginLeft: "2px", marginRight: "2px" }}>
           <AddCard text="Add Card" token={token} setCards={setCards} />
         </Row>
       </Col>
       <Col style={{ backgroundColor: "#EBECF0" }}>
-        <center>Review</center>
+        <ColumnHeader text="Review" />
         <Row style={{ marginLeft: "2px", marginRight: "2px" }}>
           <AddCard text="Add Card" token={token} setCards={setCards} />
         </Row>
       </Col>
       <Col style={{ backgroundColor: "#EBECF0" }}>
-        <center>Done</center>
+        <ColumnHeader text="Done" />
         <Row style={{ marginLeft: "2px", marginRight: "2px" }}>
           <AddCard text="Add Card" token={token} setCards={setCards} />
         </Row>
