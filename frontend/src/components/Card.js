@@ -9,7 +9,7 @@ import DetailRow from "./DetailRow";
 
 const Card = ({ text }) => {
   const [show, setShow] = useState(false);
-  const mockCheckList = ["ali", "test"];
+  const mockCheckList = ["ali", "test", "hello this is me"];
 
   const handleClose = () => {
     // Update task in server
@@ -54,7 +54,7 @@ const Card = ({ text }) => {
                     </Form.Group>
                   </Form>
                 </div>
-                <Checklist checklists={mockCheckList} />
+                <Checklist list={mockCheckList} />
                 <div style={{ marginBottom: "10px", marginTop: "10px" }}>
                   <DetailRow Icon={FaComment} text="Comments" />
                   <Comment text="Comment1" name="Ali" picUrl="test.jpg" />
@@ -75,12 +75,6 @@ const Card = ({ text }) => {
                   <Button>
                     <FaPlus />
                     Add member
-                  </Button>
-                </div>
-                <div>
-                  <Button>
-                    <FaPlus />
-                    Add Check List
                   </Button>
                 </div>
               </Col>

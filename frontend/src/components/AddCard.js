@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { FaAirbnb } from "react-icons/fa";
 import { Form, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 
 import { BASE_SERVER_URL } from "../consts";
 
-const AddCard = ({ text, token, setCards }) => {
+const AddCard = ({ text, token }) => {
   const [addMode, setAddMode] = useState(false);
   const [newCardName, setnewCardName] = useState("");
-
-  const navigate = useNavigate();
 
   const AddCradToServer = async (event) => {
     event.preventDefault();
