@@ -1,4 +1,3 @@
-import { FaCircle } from "react-icons/fa";
 import Member from "./Member";
 
 const Comment = ({ text, name, picUrl }) => {

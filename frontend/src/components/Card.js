@@ -3,8 +3,8 @@ import { useState } from "react";
 
 import { FaAddressCard, FaInfo, FaPlus } from "react-icons/fa";
 import Checklist from "./Checklist";
-import Member from "./Member";
-import DetailRow from "./DetailRow";
+import Member from "../Items/Member";
+import DetailRow from "../Items/DetailRow";
 import Comments from "./Comments";
 
 const Card = ({ text }) => {

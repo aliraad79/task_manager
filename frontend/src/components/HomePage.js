@@ -29,7 +29,8 @@ const HomePage = ({ getAuthToken, setAuthToken }) => {
           setCards(response !== null ? response.map((x) => x.title) : [])
         );
     };
-    getNotes();
+    // getNotes();
+    setCards(["Test"])
   });
 
   return !token ? (

@@ -3,7 +3,7 @@ import Card from "./Card";
 import { Row, Col } from "react-bootstrap";
 import AddCard from "./AddCard";
 
-import ColumnHeader from "./ColumnHeader";
+import ColumnHeader from "../Items/ColumnHeader";
 
 const HomePageColumns = ({ token, cards, setCards }) => {
   return (

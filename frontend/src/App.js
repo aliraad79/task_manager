@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import HomePage from "./components/HomePage";
-import Login from "./components/Login";
+import Login from "./authentication/Login";
 import LogoImage from "./background.jpg";
 import { useCookies } from "react-cookie";
 import { SESSION_AGE_IN_HOURS } from "./consts";
-import SignUp from "./components/SignUp";
-import Signout from "./components/Signout";
+import SignUp from "./authentication/SignUp";
+import Signout from "./authentication/Signout";
 
 var backgroundStyle = {
   backgroundImage: `url(${LogoImage})`,

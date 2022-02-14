@@ -1,7 +1,7 @@
 import { Form } from "react-bootstrap";
 import { FaCheckSquare } from "react-icons/fa";
 import AddChecklist from "./AddChecklist";
-import DetailRow from "./DetailRow";
+import DetailRow from "../Items/DetailRow";
 import { useState } from "react";
 
 const Checklist = ({ list }) => {

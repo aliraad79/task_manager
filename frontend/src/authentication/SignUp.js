@@ -7,23 +7,23 @@ import {
   Col,
 } from "react-bootstrap";
 import { useState } from "react";
-import MyNavbar from "./NavBar";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { BASE_SERVER_URL } from "../consts";
+import MyNavbar from "../components/NavBar";
 
-const Login = ({ setAuthToken, getAuthToken }) => {
+const SignUp = ({ getAuthToken }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
-  const login_user = async (event) => {
+  const signup_user = async (event) => {
     event.preventDefault();
-    await fetch(`${BASE_SERVER_URL}/login`, {
+    await fetch(`${BASE_SERVER_URL}/signup`, {
       method: "POST",
       body: JSON.stringify({
-        username: username,
-        password: password,
+        username,
+        password,
       }),
     })
       .then((response) => {
@@ -32,10 +32,7 @@ const Login = ({ setAuthToken, getAuthToken }) => {
         }
       })
       .then((response) => {
-        if (response) {
-          setAuthToken(`${response.token}`);
-          navigate("/", { replace: true });
-        }
+        if (response) navigate("/login");
       });
   };
 
@@ -44,13 +41,13 @@ const Login = ({ setAuthToken, getAuthToken }) => {
     <Navigate to={{ pathname: "/" }} />
   ) : (
     <>
-      <MyNavbar />
+      <MyNavbar getAuthToken={getAuthToken} />
       <Container>
         <Row>
           <Col></Col>
           <Col xs={6}>
             <center>
-              <h2>Login</h2>
+              <h2>Sign Up</h2>
             </center>
           </Col>
           <Col></Col>
@@ -62,11 +59,11 @@ const Login = ({ setAuthToken, getAuthToken }) => {
               style={{
                 boxShadow: "5px 5px 2px #9E9E9E",
                 border: "6px solid",
-                borderColor: "#616161 #9bc5c3 #9bc5c3 #616161",
+                borderColor: "#9bc5c3 #616161 #616161 #9bc5c3",
                 fontWeight: "550",
               }}
             >
-              <Form onSubmit={login_user}>
+              <Form onSubmit={signup_user}>
                 <FloatingLabel label="Username">
                   <Form.Control
                     type="username"
@@ -87,8 +84,8 @@ const Login = ({ setAuthToken, getAuthToken }) => {
                   />
                 </FloatingLabel>
                 <center>
-                  <Button variant="primary" type="submit">
-                    Login
+                  <Button variant="info" type="submit">
+                    Sign UP
                   </Button>
                 </center>
               </Form>
@@ -101,4 +98,4 @@ const Login = ({ setAuthToken, getAuthToken }) => {
   );
 };
 
-export default Login;
+export default SignUp;

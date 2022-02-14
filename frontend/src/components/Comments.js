@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 import { FaComment, FaPlus } from "react-icons/fa";
-import Comment from "./Comment";
-import DetailRow from "./DetailRow";
+import Comment from "../Items/Comment";
+import DetailRow from "../Items/DetailRow";
 import { Form } from "react-bootstrap";
 
 const Comments = ({ list }) => {
