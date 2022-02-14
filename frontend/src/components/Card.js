@@ -1,11 +1,11 @@
 import { Modal, Button, Container, Form, Col, Row } from "react-bootstrap";
 import { useState } from "react";
 
-import { FaAddressCard, FaInfo, FaPlus, FaComment } from "react-icons/fa";
-import Comment from "./Comment";
+import { FaAddressCard, FaInfo, FaPlus } from "react-icons/fa";
 import Checklist from "./Checklist";
 import Member from "./Member";
 import DetailRow from "./DetailRow";
+import Comments from "./Comments";
 
 const Card = ({ text }) => {
   const [show, setShow] = useState(false);
@@ -32,11 +32,13 @@ const Card = ({ text }) => {
         <Modal.Body>
           <Container
             style={{
-              height: "70vh",
-              backgroundColor: "#1A9393",
+              height: "80vh",
+              backgroundColor: "#b39647",
               margin: "auto",
               padding: "10px",
               color: "white",
+              overflow: "scroll",
+              overflowX: "hidden",
             }}
           >
             <Row>
@@ -55,13 +57,7 @@ const Card = ({ text }) => {
                   </Form>
                 </div>
                 <Checklist list={mockCheckList} />
-                <div style={{ marginBottom: "10px", marginTop: "10px" }}>
-                  <DetailRow Icon={FaComment} text="Comments" />
-                  <Comment text="Comment1" name="Ali" picUrl="test.jpg" />
-                  <Comment text="Comment2" name="Ali" picUrl="test.jpg" />
-                  <Comment text="Comment3" name="Ali" picUrl="test.jpg" />
-                  <Comment text="Comment4" name="Ali" picUrl="test.jpg" />
-                </div>
+                <Comments />
               </Col>
               <Col>
                 <div>
@@ -81,14 +77,6 @@ const Card = ({ text }) => {
             </Row>
           </Container>
         </Modal.Body>
-        {/* <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                  Close
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                  Save Changes
-                </Button>
-              </Modal.Footer> */}
       </Modal>
     </>
   );
