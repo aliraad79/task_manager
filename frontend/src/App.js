@@ -13,7 +13,6 @@ import Signout from "./authentication/Signout";
 var backgroundStyle = {
   backgroundImage: `url(${LogoImage})`,
   height: "100vh",
-  zIndex: -2,
 };
 
 function App() {
