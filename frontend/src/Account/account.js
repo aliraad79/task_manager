@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import { useState } from "react";
 import { Row, Container, Col, Image } from "react-bootstrap";
 import { Navigate, useNavigate } from "react-router-dom";
+import AccountPart from "./AccountPart";
 
 const Account = ({ getAuthToken, setAuthToken }) => {
   const token = getAuthToken();
@@ -32,51 +33,9 @@ const Account = ({ getAuthToken, setAuthToken }) => {
               </center>
             </Col>
             <Col>
-              <Row>
-                <Col>
-                  <center
-                    style={{
-                      border: "6px solid",
-                      borderColor: "#9E9E9E",
-                      marginTop: "20px",
-                      marginRight: "20px",
-                    }}
-                  >
-                    <h3>Username</h3>
-                    <h5 style={{ paddingLeft: "25px" }}>Kafahmadi</h5>
-                  </center>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <center
-                    style={{
-                      border: "6px solid",
-                      borderColor: "#9bc5c3",
-                      marginTop: "20px",
-                      marginRight: "20px",
-                    }}
-                  >
-                    <h3>Spaces</h3>
-                    <h5>5</h5>
-                  </center>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <center
-                    style={{
-                      border: "6px solid",
-                      borderColor: "#616161",
-                      marginTop: "20px",
-                      marginRight: "20px",
-                    }}
-                  >
-                    <h3>Cards</h3>
-                    <h5>43</h5>
-                  </center>
-                </Col>
-              </Row>
+              <AccountPart title="Username" value="Kafahmadi" />
+              <AccountPart title="Spaces" value="5" />
+              <AccountPart title="Cards" value="43" />
             </Col>
           </Row>
         </div>
