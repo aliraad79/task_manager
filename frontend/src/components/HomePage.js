@@ -1,11 +1,10 @@
 import NavBar from "./NavBar";
-import Card from "./Card";
 
 import { useState, useEffect } from "react";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Container } from "react-bootstrap";
 import { Navigate, useNavigate } from "react-router-dom";
-import AddCard from "./AddCard";
 import { BASE_SERVER_URL } from "../consts";
+import HomePageColumns from "./HomePageColumns";
 
 const HomePage = ({ getAuthToken, setAuthToken }) => {
   const [cards, setCards] = useState([]);
@@ -30,8 +29,9 @@ const HomePage = ({ getAuthToken, setAuthToken }) => {
           setCards(response !== null ? response.map((x) => x.title) : [])
         );
     };
-    getNotes();
-  }, []);
+    // getNotes();
+    setCards(["Test"])
+  });
 
   return !token ? (
     <Navigate to={{ pathname: "/login" }} />
@@ -40,25 +40,7 @@ const HomePage = ({ getAuthToken, setAuthToken }) => {
       <NavBar />
       <Container style={{ maxWidth: "100%" }}>
         <Row>
-          <Col style={{ backgroundColor: "#EBECF0" }}>
-            <Row>
-              <center>Column 1</center>
-            </Row>
-            {cards.map((task) => (
-              <Row style={{ marginLeft: "2px", marginRight: "2px" }}>
-                <Card text={task} key={task} />
-              </Row>
-            ))}
-            <Row style={{ marginLeft: "2px", marginRight: "2px" }}>
-              <AddCard text="Add Card" token={token} setCards={setCards} />
-            </Row>
-          </Col>
-          <Col>2 of 7</Col>
-          <Col>3 of 7</Col>
-          <Col>4 of 7</Col>
-          <Col>5 of 7</Col>
-          <Col>6 of 7</Col>
-          <Col>7 of 7</Col>
+          <HomePageColumns token={token} cards={cards} setCards={setCards} />
         </Row>
       </Container>
     </>

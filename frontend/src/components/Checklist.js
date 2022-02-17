@@ -1,23 +1,25 @@
 import { Form } from "react-bootstrap";
 import { FaCheckSquare } from "react-icons/fa";
-import DetailRow from "./DetailRow";
+import AddChecklist from "./AddChecklist";
+import DetailRow from "../Items/DetailRow";
+import { useState } from "react";
 
-const Checklist = ({ checklists }) => {
+const Checklist = ({ list }) => {
+  const [Checklsit, setChecklist] = useState(list);
+
   return (
     <>
       <DetailRow Icon={FaCheckSquare} text="CheckList" />
       <div
         style={{
-          width: "80%",
-          border: "5px solid #FF0000",
+          width: "90%",
           margin: "auto",
           padding: "5px",
-          color: "white",
         }}
       >
         <Form>
-          {checklists.map((item) => (
-            <div key={`default-${item}`} className="mb-1">
+          {Checklsit.map((item, index) => (
+            <div key={`default-${index}`} className="mb-1">
               <Form.Check
                 type="checkbox"
                 id={`default-checkbox`}
@@ -26,6 +28,7 @@ const Checklist = ({ checklists }) => {
             </div>
           ))}
         </Form>
+        <AddChecklist list={Checklsit} setChecklist={setChecklist} />
       </div>
     </>
   );
