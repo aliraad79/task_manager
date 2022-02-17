@@ -6,9 +6,12 @@ import Checklist from "./Checklist";
 import Member from "../Items/Member";
 import DetailRow from "../Items/DetailRow";
 import Comments from "./Comments";
+import AddMember from "./AddMemberToCard";
 
 const Card = ({ text }) => {
   const [show, setShow] = useState(false);
+  const [description, setDescription] = useState("");
+
   const mockCheckList = ["ali", "test", "hello this is me"];
 
   const handleClose = () => {
@@ -52,7 +55,11 @@ const Card = ({ text }) => {
                       <Form.Label>
                         <DetailRow Icon={FaInfo} text="Description" />
                       </Form.Label>
-                      <Form.Control as="textarea" rows={3} />
+                      <Form.Control
+                        as="textarea"
+                        rows={3}
+                        onChange={(e) => setDescription(e.target.value)}
+                      />
                     </Form.Group>
                   </Form>
                 </div>
@@ -67,12 +74,7 @@ const Card = ({ text }) => {
                   <Member name="Ali" picUrl="test.jpg" />
                   <Member name="Ali" picUrl="test.jpg" />
                 </div>
-                <div>
-                  <Button>
-                    <FaPlus />
-                    Add member
-                  </Button>
-                </div>
+                <AddMember />
               </Col>
             </Row>
           </Container>
