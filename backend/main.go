@@ -35,7 +35,7 @@ func main() {
 	db = initDB()
 
 	r := gin.Default()
-	// r.Use(CORSMiddleware())
+	r.Use(CORSMiddleware())
 
 	router := r.Group("/api")
 	router.POST("/login", login)

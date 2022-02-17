@@ -6,5 +6,4 @@ WORKDIR backend
 
 ADD backend .
 
-RUN go get
-
+RUN go build
