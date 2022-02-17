@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "6432:5432"
+
+  webapp:
+    build:
+      context: "."
+      dockerfile: Dockerfile.backend
+    command: "go run ."
+    ports:
+      - 8080-8083:8080
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:1.17.10-alpine
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    ports:
+      - "80:80"
+    depends_on:
+      - webapp
+  
+  frontend:
+    build:
+      context: "."
+      dockerfile: Dockerfile.frontend
+    command: [ "npm", "start" ]
+    ports:
+      - 3000:3000
