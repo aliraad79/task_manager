@@ -30,10 +30,14 @@ const Account = ({ getAuthToken, setAuthToken }) => {
                   roundedCircle="true"
                   src={pic_url}
                 />
+                <Row>
+                  <center style={{ marginTop: "20px" }}>
+                    <h5>Kafahmadi</h5>
+                  </center>
+                </Row>
               </center>
             </Col>
             <Col>
-              <AccountPart title="Username" value="Kafahmadi" />
               <AccountPart title="Spaces" value="5" />
               <AccountPart title="Cards" value="43" />
             </Col>
