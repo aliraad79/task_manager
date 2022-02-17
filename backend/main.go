@@ -51,6 +51,7 @@ func main() {
 	board_router.POST("/:board_id/add-member", addMembetToBoard)
 	board_router.POST("/:board_id/remove-member", removeMembetFromBoard)
 	board_router.GET("/:board_id/cards", getBoardCards)
+	board_router.GET("/list", myBoards)
 
 	card_router := router.Group("/cards")
 	card_router.Use(JWTMiddleware())
@@ -61,6 +62,7 @@ func main() {
 	card_router.POST("/:card_id/comments", addComment)
 	card_router.DELETE("/:card_id/comments/:comment_id", deleteComment)
 	card_router.POST("/:card_id/checklists", addChecklist)
+	card_router.PUT("/:card_id/checklists/:checklist_id", updateChecklist)
 	card_router.DELETE("/:card_id/checklists/:checklist_id", deleteChecklist)
 	card_router.POST("/:card_id/add-member", addMembetToCard)
 	card_router.POST("/:card_id/remove-member", removeMembetFromCard)

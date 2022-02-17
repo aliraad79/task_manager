@@ -104,7 +104,7 @@ func getCardRoute(c *gin.Context) {
 	db.Model(&card).Association("User").Find(&members)
 	var member_response []map[string]interface{}
 	for _, member := range members {
-		member_response = append(member_response, gin.H{"UserID": member.ID, "Username": member.Username})
+		member_response = append(member_response, userToJSON(member))
 	}
 
 	response := gin.H{"ID": card.ID, "title": card.Title, "body": card.Body, "board": card.BoardID, "members": member_response, "comments": comment_response, "checklists": checklist_response}
@@ -144,11 +144,32 @@ func createBorad(c *gin.Context) {
 		return
 	}
 	db.Create(&board)
+	var user User
+	user_id, _ := c.Get("user_id")
+	user_id, _ = strconv.Atoi(user_id.(string))
+	db.Find(&user, user_id)
+	db.Model(&board).Association("User").Append(&user)
 	c.JSON(http.StatusOK, gin.H{"Board ID": board.ID})
 }
 
 func BoardToJSON(board Board) map[string]interface{} {
 	return gin.H{"ID": board.ID, "name": board.Name}
+}
+
+func myBoards(c *gin.Context) {
+	var user User
+	user_id, _ := c.Get("user_id")
+	user_id, _ = strconv.Atoi(user_id.(string))
+	db.Find(&user, user_id)
+	var boards []Board
+
+	// db.Model(&boards).Association("User").Append(&user)
+
+	var response []map[string]interface{}
+	for _, board := range boards {
+		response = append(response, BoardToJSON(board))
+	}
+	c.JSON(http.StatusOK, response)
 }
 
 func getBoard(board_id int) (Board, error) {
@@ -335,6 +356,22 @@ func addChecklist(c *gin.Context) {
 	db.Create(&checklist)
 	c.JSON(http.StatusOK, gin.H{"Checklist ID": checklist.ID})
 }
+
+func updateChecklist(c *gin.Context) {
+	checklist_id, _ := strconv.Atoi(c.Param("checklist_id"))
+	var checklist Checklist
+	object := db.First(&checklist, checklist_id)
+
+	if object.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"Error": "Item not found"})
+		return
+	}
+	checked, _ := c.Get("checked")
+	checked, _ = strconv.ParseBool(checked.(string))
+	object.Update("Checked", checked)
+	c.JSON(http.StatusOK, gin.H{"Success": "Checklist updated"})
+}
+
 func deleteChecklist(c *gin.Context) {
 	checklist_id, _ := strconv.Atoi(c.Param("checklist_id"))
 	var checklist Checklist
