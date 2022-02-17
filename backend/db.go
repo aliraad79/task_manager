@@ -13,13 +13,30 @@ type Board struct {
 }
 type Card struct {
 	gorm.Model
-	Title string `json:"title" binding:"required"`
-	Body  string `json:"body"`
+	Title  string `json:"title" binding:"required"`
+	Body   string `json:"body"`
+	Status string `json:"status" gorm:"default:backlog"`
 
 	User []User `gorm:"many2many:user_cards;"`
 
 	BoardID int `json:"boardID"`
 	Board   Board
+}
+
+type Comment struct {
+	gorm.Model
+	Body string `json:"body"`
+
+	CardId int `json:"CardID"`
+	Card   Card
+}
+
+type Checklist struct {
+	gorm.Model
+	Body    string `json:"body"`
+	Checked bool   `json:"checked"`
+	CardId  int    `json:"CardID"`
+	Card    Card
 }
 
 type User struct {
@@ -39,5 +56,7 @@ func initDB() gorm.DB {
 	db.AutoMigrate(&Board{})
 	db.AutoMigrate(&User{})
 	db.AutoMigrate(&Card{})
+	db.AutoMigrate(&Comment{})
+	db.AutoMigrate(&Checklist{})
 	return *db
 }

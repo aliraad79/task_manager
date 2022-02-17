@@ -35,13 +35,22 @@ func main() {
 	db = initDB()
 
 	r := gin.Default()
-	r.Use(CORSMiddleware())
+	// r.Use(CORSMiddleware())
 
 	router := r.Group("/api")
 	router.POST("/login", login)
 	router.POST("/signup", singup)
+	router.GET("/members", getMembers)
 
-	router.POST("/board", createBorad)
+	board_router := router.Group("/boards")
+	board_router.Use(JWTMiddleware())
+	board_router.POST("/create", createBorad)
+	board_router.GET("/:board_id/get", getBoardRoute)
+	board_router.PUT("/:board_id/edit", updateBoard)
+	board_router.DELETE("/:board_id/delete", deleteBoard)
+	board_router.POST("/:board_id/add-member", addMembetToBoard)
+	board_router.POST("/:board_id/remove-member", removeMembetFromBoard)
+	board_router.GET("/:board_id/cards", getBoardCards)
 
 	card_router := router.Group("/cards")
 	card_router.Use(JWTMiddleware())
@@ -49,8 +58,14 @@ func main() {
 	card_router.GET("/:card_id", getCardRoute)
 	card_router.PUT("/:card_id", updateCard)
 	card_router.DELETE("/:card_id", deleteCard)
+	card_router.POST("/:card_id/comments", addComment)
+	card_router.DELETE("/:card_id/comments/:comment_id", deleteComment)
+	card_router.POST("/:card_id/checklists", addChecklist)
+	card_router.DELETE("/:card_id/checklists/:checklist_id", deleteChecklist)
+	card_router.POST("/:card_id/add-member", addMembetToCard)
+	card_router.POST("/:card_id/remove-member", removeMembetFromCard)
 
-	card_router.GET("/", getAllCards)
+	card_router.GET("/list", getAllCards)
 
 	r.Run()
 }
