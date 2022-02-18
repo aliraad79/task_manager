@@ -35,7 +35,13 @@ func getAllCards(c *gin.Context) {
 }
 
 func updateCard(c *gin.Context) {
+	var new_card Card
 	var card Card
+	if err := c.ShouldBindJSON(&new_card); err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"Result": "Bad Parameter"})
+		return
+	}
+
 	Card_id := c.Param("card_id")
 	object := db.First(&card, Card_id)
 
@@ -43,26 +49,16 @@ func updateCard(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"Error": "Item not found"})
 		return
 	}
-	title, _ := c.Get("Title")
-	if title != "" {
-		object.Update("Title", title)
+	if new_card.Title != "" {
+		object.Update("Title", new_card.Title)
 	}
-
-	body, _ := c.Get("Body")
-	if body != "" {
-		object.Update("Body", body)
+	if new_card.Body != "" {
+		object.Update("Body", new_card.Body)
 	}
-	status, _ := c.Get("Status")
-	if status != "" {
-		object.Update("Status", status)
-	}
-	board_id, _ := c.Get("BoardID")
-	board_id, _ = strconv.Atoi(board_id.(string))
-	if board_id != 0 {
-		object.Update("BoardID", board_id)
+	if new_card.Status != "" {
+		object.Update("Status", new_card.Status)
 	}
 	c.JSON(http.StatusOK, CardToJSON(card))
-
 }
 
 func deleteCard(c *gin.Context) {
@@ -146,7 +142,6 @@ func createBorad(c *gin.Context) {
 	db.Create(&board)
 	var user User
 	user_id, _ := c.Get("user_id")
-	user_id, _ = strconv.Atoi(user_id.(string))
 	db.Find(&user, user_id)
 	db.Model(&board).Association("User").Append(&user)
 	c.JSON(http.StatusOK, gin.H{"Board ID": board.ID})
@@ -188,6 +183,19 @@ func getBoardCards(c *gin.Context) {
 	response := make(map[string][]map[string]interface{})
 	for _, card := range cards {
 		response[card.Status] = append(response[card.Status], CardToJSON(card))
+	}
+	c.JSON(http.StatusOK, response)
+}
+
+func getBoardMembers(c *gin.Context) {
+	var board Board
+	board_id, _ := strconv.Atoi(c.Param("board_id"))
+	db.Find(&board, board_id)
+	var members []User
+	db.Model(&board).Association("User").Find(&members)
+	var response []map[string]interface{}
+	for _, member := range members {
+		response = append(response, userToJSON(member))
 	}
 	c.JSON(http.StatusOK, response)
 }
@@ -238,14 +246,23 @@ func deleteBoard(c *gin.Context) {
 }
 
 func addMembetToBoard(c *gin.Context) {
-	uid, _ := c.Get("userid")
-	uid, _ = strconv.Atoi(uid.(string))
+	type RequestBody struct {
+		Userid int `json:"userid" binding:"required"`
+	}
+	var body RequestBody
+
+	if err := c.ShouldBindJSON(&body); err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"Result": "Bad Parameter"})
+		return
+	}
+
+	uid := body.Userid
 	var user User
 	var board Board
 	board_id := c.Param("board_id")
 	object := db.First(&user, uid)
 	if object.Error != nil {
-		c.JSON(http.StatusNotFound, gin.H{"Error": "User not found"})
+		c.JSON(http.StatusNotFound, gin.H{"Error": "User not found", "uid": uid})
 		return
 	}
 	object = db.First(&board, board_id)
@@ -257,14 +274,23 @@ func addMembetToBoard(c *gin.Context) {
 	}
 }
 func removeMembetFromBoard(c *gin.Context) {
-	uid, _ := c.Get("userid")
-	uid, _ = strconv.Atoi(uid.(string))
+	type RequestBody struct {
+		Userid int `json:"userid" binding:"required"`
+	}
+	var body RequestBody
+
+	if err := c.ShouldBindJSON(&body); err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"Result": "Bad Parameter"})
+		return
+	}
+
+	uid := body.Userid
 	var user User
 	var board Board
 	board_id := c.Param("board_id")
 	object := db.First(&user, uid)
 	if object.Error != nil {
-		c.JSON(http.StatusNotFound, gin.H{"Error": "User not found"})
+		c.JSON(http.StatusNotFound, gin.H{"Error": "User not found", "uid": uid})
 		return
 	}
 	object = db.First(&board, board_id)
@@ -277,14 +303,24 @@ func removeMembetFromBoard(c *gin.Context) {
 }
 
 func addMembetToCard(c *gin.Context) {
-	uid, _ := c.Get("userid")
-	uid, _ = strconv.Atoi(uid.(string))
+	type RequestBody struct {
+		Userid int `json:"userid" binding:"required"`
+	}
+	var body RequestBody
+
+	if err := c.BindJSON(&body); err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"Result": "Bad Parameter"})
+		return
+	}
+
+	uid := body.Userid
+	fmt.Println(uid)
 	var user User
 	var card Card
 	card_id := c.Param("card_id")
-	object := db.First(&user, uid)
+	object := db.Find(&user, uid)
 	if object.Error != nil {
-		c.JSON(http.StatusNotFound, gin.H{"Error": "User not found"})
+		c.JSON(http.StatusNotFound, gin.H{"Error": "User not found", "uid": uid})
 		return
 	}
 	object = db.First(&card, card_id)
@@ -296,8 +332,17 @@ func addMembetToCard(c *gin.Context) {
 	}
 }
 func removeMembetFromCard(c *gin.Context) {
-	uid, _ := c.Get("userid")
-	uid, _ = strconv.Atoi(uid.(string))
+	type RequestBody struct {
+		Userid int `json:"userid" binding:"required"`
+	}
+	var body RequestBody
+
+	if err := c.ShouldBindJSON(&body); err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"Result": "Bad Parameter"})
+		return
+	}
+
+	uid := body.Userid
 	var user User
 	var card Card
 	card_id := c.Param("card_id")
@@ -331,17 +376,22 @@ func getMembers(c *gin.Context) {
 }
 
 func addComment(c *gin.Context) {
-	body, _ := c.Get("body")
+	var comment Comment
+	if err := c.ShouldBindJSON(&comment); err != nil {
+		fmt.Println(err)
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"Result": "Bad json"})
+		return
+	}
 	card_id, _ := strconv.Atoi(c.Param("card_id"))
-	comment := Comment{CardId: card_id, Body: body.(string)}
+	comment.CardId = card_id
 	db.Create(&comment)
 	c.JSON(http.StatusOK, gin.H{"Comment ID": comment.ID})
 }
 func deleteComment(c *gin.Context) {
 	comment_id, _ := strconv.Atoi(c.Param("comment_id"))
 	var comment Comment
-	err := db.Find(&comment, comment_id)
-	if err != nil {
+	result := db.Find(&comment, comment_id)
+	if result.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{"Error": "Comment not found"})
 	} else {
 		db.Delete(&comment)
@@ -350,9 +400,14 @@ func deleteComment(c *gin.Context) {
 }
 
 func addChecklist(c *gin.Context) {
-	body, _ := c.Get("body")
+	var checklist Checklist
+	if err := c.ShouldBindJSON(&checklist); err != nil {
+		fmt.Println(err)
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"Result": "Bad json", "err": err})
+		return
+	}
 	card_id, _ := strconv.Atoi(c.Param("card_id"))
-	checklist := Checklist{CardId: card_id, Body: body.(string)}
+	checklist.CardId = card_id
 	db.Create(&checklist)
 	c.JSON(http.StatusOK, gin.H{"Checklist ID": checklist.ID})
 }
@@ -361,23 +416,21 @@ func updateChecklist(c *gin.Context) {
 	checklist_id, _ := strconv.Atoi(c.Param("checklist_id"))
 	var checklist Checklist
 	object := db.First(&checklist, checklist_id)
-
-	if object.Error != nil {
-		c.JSON(http.StatusNotFound, gin.H{"Error": "Item not found"})
+	var new_checklist Checklist
+	if err := c.ShouldBindJSON(&new_checklist); err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"Result": "Bad Parameter"})
 		return
 	}
-	checked, _ := c.Get("checked")
-	checked, _ = strconv.ParseBool(checked.(string))
-	object.Update("Checked", checked)
+	object.Update("Checked", new_checklist.Checked)
 	c.JSON(http.StatusOK, gin.H{"Success": "Checklist updated"})
 }
 
 func deleteChecklist(c *gin.Context) {
 	checklist_id, _ := strconv.Atoi(c.Param("checklist_id"))
 	var checklist Checklist
-	err := db.Find(&checklist, checklist_id)
-	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"Error": "Checklist not found"})
+	result := db.Find(&checklist, checklist_id)
+	if result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"Error": "Checklist not found", "checklist_id": checklist_id})
 	} else {
 		db.Delete(&checklist)
 		c.JSON(http.StatusOK, gin.H{"Success": "Checklist deleted"})

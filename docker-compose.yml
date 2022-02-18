@@ -18,9 +18,11 @@ services:
       dockerfile: Dockerfile.backend
     command: "go run ."
     ports:
-      - 8080-8083:8080
+      - 8080:8080
     depends_on:
       - db
+    volumes:
+      - ./backend:/go/backend
 
   nginx:
     image: nginx:1.17.10-alpine

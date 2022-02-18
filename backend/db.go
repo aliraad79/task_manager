@@ -15,7 +15,7 @@ type Board struct {
 }
 type Card struct {
 	gorm.Model
-	Title  string `json:"title" binding:"required"`
+	Title  string `json:"title"`
 	Body   string `json:"body"`
 	Status string `json:"status" gorm:"default:backlog"`
 
