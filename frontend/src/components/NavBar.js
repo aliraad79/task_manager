@@ -4,7 +4,7 @@ import AddSpace from "./AddSpace";
 import { useEffect, useState } from "react";
 import { BASE_SERVER_URL } from "../consts";
 
-const MyNavbar = () => {
+const MyNavbar = ({ inAccount = false }) => {
   const [cookies, _] = useCookies(["authToken"]);
   const [members, setMembers] = useState([]);
 
@@ -57,7 +57,7 @@ const MyNavbar = () => {
                     </Dropdown>
                   </Nav.Link>
 
-                  <Nav.Link>
+                  {!inAccount && <Nav.Link>
                     <Dropdown>
                       <Dropdown.Toggle
                         id="dropdown-button-dark-example1"
@@ -75,7 +75,7 @@ const MyNavbar = () => {
                         </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
-                  </Nav.Link>
+                  </Nav.Link>}
                 </>
               ) : (
                 <>

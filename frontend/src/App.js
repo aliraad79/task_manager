@@ -9,6 +9,7 @@ import { useCookies } from "react-cookie";
 import { SESSION_AGE_IN_HOURS } from "./consts";
 import SignUp from "./authentication/SignUp";
 import Signout from "./authentication/Signout";
+import Account from "./Account/account";
 
 var backgroundStyle = {
   backgroundImage: `url(${LogoImage})`,
@@ -54,6 +55,12 @@ function App() {
           <Route
             path="/signout"
             element={<Signout setAuthToken={setAuthToken} />}
+          />
+          <Route
+            path="/account"
+            element={
+              <Account setAuthToken={setAuthToken} getAuthToken={getAuthToken} />
+            }
           />
         </Routes>
       </Router>
